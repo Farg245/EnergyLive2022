@@ -55,8 +55,8 @@ app.get('/profile', checkAuthenticated, (req, res)=>{
     res.render('profile', {user});
 })
 
-app.get('/protectedRoute', checkAuthenticated, (req,res)=>{
-    res.send('This route is protected')
+app.get('/randompath', checkAuthenticated, (req,res)=>{
+    res.send('randompath')
 })
 
 app.get('/logout', (req, res)=>{
