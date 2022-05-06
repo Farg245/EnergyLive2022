@@ -2,9 +2,10 @@
   "name": "saas1",
   "version": "1.0.0",
   "description": "Project for SaaS ntua",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run":"node app.js"
   },
   "repository": {
     "type": "git",
