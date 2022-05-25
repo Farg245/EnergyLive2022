@@ -1,26 +1,22 @@
 require('dotenv').config()
 
 const express = require('express');
-const app = express();
-const cookieParser = require('cookie-parser')
 
+const app =express()
+const cookieParser = require('cookie-parser')
+const check =require("./utils/checkAuthenticated")
 // Google Auth
 const {OAuth2Client} = require('google-auth-library');
 const CLIENT_ID = '943213374348-nlci0pngntpeshsip11d8f9d1gjo52ls.apps.googleusercontent.com'
 const client = new OAuth2Client(CLIENT_ID);
-
-
-const PORT = 7000;
-
 // Middleware
-
-app.set('view engine', 'ejs');
+const path = require("path");
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
-
+app.set("view engine","ejs")
 app.get('/', (req, res)=>{
-    res.render('index')
+    res.render("index")
 })
 
 app.get('/login', (req,res)=>{
@@ -36,9 +32,6 @@ app.post('/login', (req,res)=>{
             audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
         });
         const payload = ticket.getPayload();
-        // const userid = payload['sub'];
-        
-       
       }
       
       verify()
@@ -50,12 +43,12 @@ app.post('/login', (req,res)=>{
 
 })
 
-app.get('/profile', checkAuthenticated, (req, res)=>{
+app.get('/profile', check.authenticated, (req, res)=>{
     let user = req.user;
     res.render('profile', {user});
 })
 
-app.get('/randompath', checkAuthenticated, (req,res)=>{
+app.get('/randompath', check.authenticated, (req,res)=>{
     res.send('randompath')
 })
 
@@ -66,33 +59,10 @@ app.get('/logout', (req, res)=>{
 })
 
 
-function checkAuthenticated(req, res, next){
 
-    let token = req.cookies['session-token'];
-
-    let user = {};
-    async function verify() {
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
-        });
-        const payload = ticket.getPayload();
-        user.name = payload.name;
-        user.email = payload.email;
-        user.picture = payload.picture;
-      }
-      verify()
-      .then(()=>{
-          req.user = user;
-          next();
-      })
-      .catch(err=>{
-          res.redirect('/login')
-      })
-
-}
-
-
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`);
-})
+module.exports = app;
+const PORT = process.env.PORT || 7000;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
+});

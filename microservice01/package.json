@@ -2,9 +2,10 @@
   "name": "saas1",
   "version": "1.0.0",
   "description": "Project for SaaS ntua",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "dependencies": {
     "config": "^3.3.7",
     "cors": "^2.8.5",
+    "ejs": "^3.1.7",
     "express": "^4.17.3",
     "mongoose": "^6.2.11"
   },

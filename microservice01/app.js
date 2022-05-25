@@ -14,6 +14,9 @@ app.get("/home", async (req, res) => {
   const output = await ATL.find({}, "-_id");
   res.json(output);
 });
-app.listen(3000, () => {
-  console.log("listening live at 3000");
+
+const PORT = process.env.PORT || 7001;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
 });

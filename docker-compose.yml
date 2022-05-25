@@ -1,0 +1,41 @@
+version: '3'
+services:
+ 
+  microservice02:
+    build:
+      dockerfile: Dockerfile
+      context: ./microservice02
+    container_name: microservice02
+    ports:
+      - "7000:7000"
+    restart: always
+    
+    volumes:
+      - .:/app
+      - /app/microservice01/node_modules
+
+  microservice01:
+    build:
+      dockerfile: Dockerfile
+      context: ./microservice01
+    container_name: microservice01
+    ports:
+      - "7001:7001"
+    restart: always
+    depends_on:
+      - "microservice02"
+      
+    volumes:
+      - .:/app
+      - /app/microservice02/node_modules
+
+ 
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    depends_on:
+      - microservice01
+      - microservice02
+    ports:
+      - "80:80"
