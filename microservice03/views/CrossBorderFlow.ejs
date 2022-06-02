@@ -12,7 +12,7 @@
       <br>
       <!-- this in not a partical because it is use only here -->
       <% if (country_codes.length >0) {%>
-        <label for="DestionationCountry">Choose a Country:</label>
+        <label for="DestionationCountry">Choose a Destination Country:</label>
         <select name="DestionationCountry" id="DestionationCountry">
           <%  country_codes.forEach(country => { %>
             <option value=<%=country['MapCode'] %> ><%=country['Country'] %></option>
@@ -34,6 +34,11 @@
 
 
 
+
+</body>
+<%- include('./partials/footer.ejs')  %> 
+
+</html>
 
 </body>
 <%- include('./partials/footer.ejs')  %> 
