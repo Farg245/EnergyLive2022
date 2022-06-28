@@ -32,11 +32,11 @@ app.get("/CrossBorderFlow",async (req,res)=>{
   const SelectedMapCode = req.query.MapCode;
   const DestionationCountry = req.query.DestionationCountry;
 
-  //const FF_data = await FF.find({ "OutMapCode": SelectedMapCode, "InMapCode": DestionationCountry,  "DateTime": {"$gte": start, "$lte": end}}, "FlowValue  DateTime -_id").sort('DateTime');
-  //const FF_data_util = await FF.find({"DateTime": {"$gte": start, "$lte": end}}, "FlowValue  InMapCode OutMapCode DateTime -_id").sort('DateTime');
-  //console.log(FF_data_util);
+  const FF_data_util = await FF.find({  "DateTime": {"$gte": start, "$lte": end}}, "FlowValue InMapCode OutMapCode DateTime -_id");
+  // const FF_data_util = await FF.find({"OutMapCode": SelectedMapCode, "InMapCode": DestionationCountry, "DateTime": {"$gte": start, "$lte": end}}, "FlowValue  InMapCode OutMapCode DateTime -_id").sort('DateTime');
+  // console.log(FF_data_util);
   const FF_data = FF_data_util.filter((lol) => SelectedMapCode === lol.InMapCode.substring(0,2) && DestionationCountry === lol.OutMapCode.substring(0,2));
-  console.log(FF_data);
+   console.log(FF_data);
   var date_to_values_map = {};
   if (typeof FF_data !== undefined) {
     FF_data.forEach(data => {
@@ -60,7 +60,7 @@ app.get("/AggregatedGenerationperType",async (req,res)=>{
   const ProductionType = req.query.ProductionType;
   const SelectedMapCode = req.query.MapCode;//.substring(0,2);
   
-  const AGPT_data_util = await AGPT.find({"ProductionType": ProductionType,  "DateTime": {"$gte": start, "$lte": end}}, "ActualGenerationOutput  MapCode DateTime -_id").sort('DateTime');
+  const AGPT_data_util = await AGPT.find({"ProductionType": ProductionType,  "DateTime": {"$gte": start, "$lte": end}}, "ActualGenerationOutput  MapCode DateTime -_id");//.sort('DateTime');
   const AGPT_data = AGPT_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
   //console.log(AGPT_data);
   
@@ -87,7 +87,7 @@ app.get("/ActualTotalLoad", async (req, res) => {
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const SelectedMapCode = req.query.MapCode;
 
-  const ATL_data_util = await ATL.find({"DateTime": {"$gte": start, "$lte": end}}, "TotalLoadValue  MapCode DateTime -_id").sort('DateTime');
+  const ATL_data_util = await ATL.find({"DateTime": {"$gte": start, "$lte": end}}, "TotalLoadValue  MapCode DateTime -_id");//.sort('DateTime');
   const ATL_data = ATL_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
   //const ATL_data = await ATL.find({ "MapCode": SelectedMapCode,"DateTime": {"$gte": start, "$lte": end}}, "TotalLoadValue  DateTime -_id").sort('DateTime');
   //console.log(ATL_data);
