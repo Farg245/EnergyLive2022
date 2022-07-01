@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 // Connect Database
 connectDB();
 //listen localhost 
-app.listen(3000);
+app.listen(7002);
 //
 app.use(express.static("public"))
 

@@ -23,6 +23,16 @@ const produce = async () => {
 		try {
 			// send a message to the configured topic with
 			// the key and value formed from the current value of `i`
+			// await producer.send({
+			// 	topic,
+			// 	acks: 1,
+			// 	messages: [
+			// 		{
+			// 			key: String(i),
+			// 			value: "this is message " + i,
+			// 		},
+			// 	],
+			// })
 			await producer.send({
 				topic,
 				acks: 1,
@@ -40,7 +50,7 @@ const produce = async () => {
 		} catch (err) {
 			console.error("could not write message " + err)
 		}
-	}, 1000)
+	 }, 5000)
 }
 
 module.exports = produce

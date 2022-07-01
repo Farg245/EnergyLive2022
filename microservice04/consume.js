@@ -16,12 +16,12 @@ const kafka = new Kafka({
 // create a new consumer from the kafka client, and set its group ID
 // the group ID helps Kafka keep track of the messages that this client
 // is yet to receive
-const consumer = kafka.consumer({
+const consumer =kafka.consumer({
 	groupId: clientId,
 	minBytes: 5,
 	maxBytes: 1e6,
 	// wait for at most 3 seconds before receiving new data
-	maxWaitTimeInMs: 3000,
+	maxWaitTimeInMs:3000,
 })
 
 const consume = async () => {
