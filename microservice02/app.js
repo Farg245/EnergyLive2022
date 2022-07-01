@@ -45,7 +45,8 @@ app.post('/login', (req,res)=>{
 
 app.get('/profile', check.authenticated, (req, res)=>{
     let user = req.user;
-    res.render('profile', {user});
+    let email = req.email;
+    res.render('profile', {user, email});
 })
 
 app.get('/randompath', check.authenticated, (req,res)=>{
@@ -54,7 +55,7 @@ app.get('/randompath', check.authenticated, (req,res)=>{
 
 app.get('/logout', (req, res)=>{
     res.clearCookie('session-token');
-    res.redirect('/login')
+    res.redirect('/')
 
 })
 
