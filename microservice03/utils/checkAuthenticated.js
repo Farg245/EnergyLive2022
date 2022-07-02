@@ -24,6 +24,7 @@ function authenticated(req, res, next){
           req.user = user;
           dieuth=user.email;
           next();
+         
       })
       .catch(err=>{
           

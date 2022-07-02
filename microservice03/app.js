@@ -84,6 +84,8 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
       }
     })
   }
+ 
+ 
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
   res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type'})
