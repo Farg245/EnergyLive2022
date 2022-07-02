@@ -23,9 +23,18 @@ app.use(express.static("public"))
 app.get("/", async (req, res) => {
   res.render("index")
 });
+//junk
+const check =require("./utils/checkAuthenticated")
+const cookieParser = require('cookie-parser')
+app.use(express.json());
+app.use(cookieParser());
 
 
-app.get("/CrossBorderFlow",async (req,res)=>{
+//junk end
+
+
+
+app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
   const country_codes = await Countries.find({}, "-_id");
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
@@ -53,7 +62,7 @@ app.get("/CrossBorderFlow",async (req,res)=>{
   res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows'})
 })
 
-app.get("/AggregatedGenerationperType",async (req,res)=>{
+app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   const country_codes = await Countries.find({}, "-_id");
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
@@ -81,7 +90,7 @@ app.get("/AggregatedGenerationperType",async (req,res)=>{
 })
 
 
-app.get("/ActualTotalLoad", async (req, res) => {
+app.get("/ActualTotalLoad",check.authenticated, async (req, res) => {
   const country_codes = await Countries.find({}, "-_id");
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
