@@ -44,7 +44,7 @@ app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
   const downFlagJson = req.query.DownloadJSON;
   //const downFlagCsv = req.query.DownloadCSV;
 
-  console.log(downFlag)
+  console.log(downFlagJson)
   //console.log(SelectedMapCode);
   const DestionationCountry = req.query.DestionationCountry;
 
