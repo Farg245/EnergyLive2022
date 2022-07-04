@@ -41,14 +41,55 @@ services:
      restart: always
      depends_on:
        - "microservice02"
+       - "kafka" 
+       - "zookeeper"
       
      volumes:
        - .:/app
        - /app/microservice02/node_modules
 
+  microservice05:
+    
+     build:
+      dockerfile: Dockerfile
+      context: ./microservice05
+     container_name: microservice05
+     ports:
+      - "7004:7004"
+     restart: always
+     depends_on:
+       - "microservice03"
+       - "kafka" 
+       - "zookeeper"
       
+     volumes:
+       - .:/app
+       - /app/microservice03/node_modules
 
- 
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.2
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    
+    
+    depends_on:
+      - zookeeper
+
+       
   nginx-proxy:
     build:
       dockerfile: Dockerfile
@@ -57,5 +98,14 @@ services:
       - microservice01
       - microservice02
       - microservice03
+      - microservice05
+      - kafka
+      - zookeeper
     ports:
       - "80:80"
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
