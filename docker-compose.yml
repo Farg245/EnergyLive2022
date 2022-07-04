@@ -46,6 +46,24 @@ services:
        - .:/app
        - /app/microservice02/node_modules
 
+
+  microservice06:
+    
+     build:
+      dockerfile: Dockerfile
+      context: ./microservice06
+     container_name: microservice06
+     ports:
+      - "7005:7005"
+     restart: always
+     depends_on:
+       - "microservice02"
+       - "microservice03"
+      
+     volumes:
+       - .:/app
+       - /app/microservice06/node_modules
+
       
 
  
@@ -57,5 +75,6 @@ services:
       - microservice01
       - microservice02
       - microservice03
+      - microservice06
     ports:
       - "80:80"
