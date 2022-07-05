@@ -48,7 +48,6 @@ services:
        - .:/app
        - /app/microservice02/node_modules
 
-<<<<<<< HEAD
 
   microservice06:
     
@@ -67,7 +66,6 @@ services:
        - .:/app
        - /app/microservice06/node_modules
 
-=======
   microservice05:
     
      build:
@@ -81,7 +79,6 @@ services:
        - "microservice03"
        - "kafka" 
        - "zookeeper"
->>>>>>> e04f5d0a2da4bae0ffdb9d7e8f9a0c914692c1f4
       
      volumes:
        - .:/app
@@ -119,13 +116,10 @@ services:
       - microservice01
       - microservice02
       - microservice03
-<<<<<<< HEAD
       - microservice06
-=======
       - microservice05
       - kafka
       - zookeeper
->>>>>>> e04f5d0a2da4bae0ffdb9d7e8f9a0c914692c1f4
     ports:
       - "80:80"
 
