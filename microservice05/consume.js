@@ -50,9 +50,6 @@ async function consume(){
 		eachMessage: ({ message }) => {
 			// here, we just log the message to the standard output
 			
-			//console.log(`received message: ${message.value}`)
-			//console.log(JSON.parse(message.value))
-			//console.log("HELLOOOOOOOO")
 			const mes = message.value
 
 			fs.writeFile("lol.json", mes, 'utf8', function (err) {
