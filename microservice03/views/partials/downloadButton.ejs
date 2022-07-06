@@ -25,16 +25,17 @@ function exportJson(el) {
   // const my_values = "<%= values %>".split(",");
   var downl = "<%= JSON.stringify(down) %>"
   const j = downl.replace(/&#34;/g,'"')
+  const final = j.slice(1, -1);
   //var data = { foo: "500", bar: "sample" };
   // var obj = {
   //       a: 123,
   //       b: "4 5 6"
   //   };
-    var data = "text/json;charset=utf-8," + encodeURIComponent(j);
+    var data = "text/json;charset=utf-8," + encodeURIComponent(final);
     // what to return in order to show download window?
 
     el.setAttribute("href", "data:"+data);
-    el.setAttribute("download", "data.json");    
+    el.setAttribute("download", "myData.json");    
 }
 </script>
 
@@ -64,9 +65,5 @@ function exportJson(el) {
     document.getElementById("myText2").innerHTML = downl
     
   </script> -->
-
-<!--<input type="button" value="Download - JSON" onclick="downloadjson()"/>-->
-
-
 
 
