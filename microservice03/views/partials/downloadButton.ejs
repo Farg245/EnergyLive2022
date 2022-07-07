@@ -1,17 +1,3 @@
-<!--<a href="http://localhost/microservice03/CrossBorderFlow/>,">
-    <button>Download</button>
-  </a> -->
-<!--<button type="button" onClick="downloadjson()">Download</button>-->
-<!--<button type="button" onClick="downloadcsv()">Download</button>-->
-
-<!--<script>
-  function downloadjson() {
-    location.href = location.href + "&DownloadJSON=json"
-    //location.href = "http://localhost:7002/upload"
-    }            
-
-</script>-->
-
 <a id="exportJSON" onclick="exportJson(this);" class="btn"><i class="icon-download"></i> <button>Download JSON</button></a>
 
 
@@ -39,31 +25,5 @@ function exportJson(el) {
 }
 </script>
 
-<!--<script>
-  
-  const myObj = {"name":"John", "age":30, "car":null};
-
-
-  function downloadjson() {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(myObj));
-    var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    dlAnchorElem.setAttribute("href",     dataStr     );
-    dlAnchorElem.setAttribute("download", "myData.json");
-    dlAnchorElem.click();
-  }
-
-</script> -->
-<!--<pre id="myText" ></pre>
-<pre id="myText2" ></pre>
-
-  <script>
-    var data = { foo: 500, bar: "sample" };
-    const downl = "<%= down %>".split(",")
-
-   // document.getElementById("myText").innerHTML = data
-    document.getElementById("myText").innerHTML = JSON.stringify(data)
-    document.getElementById("myText2").innerHTML = downl
-    
-  </script> -->
 
 
