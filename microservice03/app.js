@@ -42,10 +42,10 @@ app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const SelectedMapCode = req.query.MapCode;
-  const downFlagJson = req.query.DownloadJSON;
+  //const downFlagJson = req.query.DownloadJSON;
   //const downFlagCsv = req.query.DownloadCSV;
 
-  console.log(downFlagJson)
+  //console.log(downFlagJson)
   //console.log(SelectedMapCode);
   const DestionationCountry = req.query.DestionationCountry;
 
@@ -65,20 +65,29 @@ app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
       }
     })
   } 
-   app.locals.FFDownload = date_to_values_map
-   if(typeof downFlagJson != "undefined"){
+   
+  //  if(typeof downFlagJson != "undefined"){
     
     
-  //download(jsonData, 'json.txt', 'text/plain');
-    // await produce(date_to_values_map).catch((err) => {
-    //      console.error("error in producer: ", err)
-    //    })
-      } 
+  // //download(jsonData, 'json.txt', 'text/plain');
+  //   // await produce(date_to_values_map).catch((err) => {
+  //   //      console.error("error in producer: ", err)
+  //   //    })
+  //     } 
 
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
+  var js=[]
+  
 
-  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows', down:JSON.stringify(date_to_values_map)})
+  for (var i = 0; i < date_labels.length; i++) {
+     js[i] = {
+      "date": date_labels[i],
+      "value": values[i]
+    }
+  }
+
+  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows', down:JSON.stringify(js)})
 })
 
 
@@ -89,7 +98,7 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const ProductionType = req.query.ProductionType;
   const SelectedMapCode = req.query.MapCode;//.substring(0,2);
-  const downFlagJson = req.query.DownloadButton;
+  //const downFlagJson = req.query.DownloadButton;
   
   const AGPT_data_util = await AGPT.find({"ProductionType": ProductionType,  "DateTime": {"$gte": start, "$lte": end}}, "ActualGenerationOutput  MapCode DateTime -_id");//.sort('DateTime');
   const AGPT_data = AGPT_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
@@ -110,20 +119,18 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
  
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
+  var js=[]
+  
 
-  if(typeof downFlagJson != "undefined"){
-    // await produce(date_to_values_map).catch((err) => {
-    //      console.error("error in producer: ", err)
-    //    })
-      } 
+  for (var i = 0; i < date_labels.length; i++) {
+     js[i] = {
+      "date": date_labels[i],
+      "value": values[i]
+    }
+  }
 
-  // if(typeof downFlagCsv != "undefined"){
-  //   await produce(date_to_values_map).catch((err) => {
-  //        console.error("error in producer: ", err)
-  //      })
-  //     } 
-
-  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type',down:JSON.stringify(date_to_values_map)})
+ 
+  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type',down:JSON.stringify(js)})
 })
 
 
@@ -132,7 +139,7 @@ app.get("/ActualTotalLoad",check.authenticated, async (req, res) => {
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const SelectedMapCode = req.query.MapCode;
-  const downFlagJson = req.query.DownloadButton;
+  //const downFlagJson = req.query.DownloadButton;
 
   const ATL_data_util = await ATL.find({"DateTime": {"$gte": start, "$lte": end}}, "TotalLoadValue  MapCode DateTime -_id");//.sort('DateTime');
   const ATL_data = ATL_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
@@ -153,14 +160,20 @@ app.get("/ActualTotalLoad",check.authenticated, async (req, res) => {
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
 
-  if(typeof downFlagJson != "undefined"){
-    // await produce(date_to_values_map).catch((err) => {
-    //      console.error("error in producer: ", err)
-    //    })
-      } 
+  var js=[]
+  
+
+  for (var i = 0; i < date_labels.length; i++) {
+     js[i] = {
+      "date": date_labels[i],
+      "value": values[i]
+    }
+  }
+
+
   app.locals.ATLDownload = date_to_values_map
-  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load',down:JSON.stringify(date_to_values_map) })
-  //console.log(ATLDownload)
+  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load',down:JSON.stringify(js) })
+
 });
 
 
