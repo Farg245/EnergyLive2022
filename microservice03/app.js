@@ -9,6 +9,7 @@ const FF = require("./models/FF_Model.js");
 const Countries = require("./models/Country_code_Model.js");
 const produce = require("./produce")
 
+
 app.use(cors());
 
 //set view engine 
@@ -66,17 +67,21 @@ app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
   } 
    app.locals.FFDownload = date_to_values_map
    if(typeof downFlagJson != "undefined"){
-    await produce(date_to_values_map).catch((err) => {
-         console.error("error in producer: ", err)
-       })
+    
+    
+  //download(jsonData, 'json.txt', 'text/plain');
+    // await produce(date_to_values_map).catch((err) => {
+    //      console.error("error in producer: ", err)
+    //    })
       } 
 
-  
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
-  
-  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows'})
+
+  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows', down:JSON.stringify(date_to_values_map)})
 })
+
+
 
 app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   const country_codes = await Countries.find({}, "-_id");
@@ -107,9 +112,9 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   const values = Object.values(date_to_values_map)
 
   if(typeof downFlagJson != "undefined"){
-    await produce(date_to_values_map).catch((err) => {
-         console.error("error in producer: ", err)
-       })
+    // await produce(date_to_values_map).catch((err) => {
+    //      console.error("error in producer: ", err)
+    //    })
       } 
 
   // if(typeof downFlagCsv != "undefined"){
@@ -118,7 +123,7 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   //      })
   //     } 
 
-  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type'})
+  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type',down:JSON.stringify(date_to_values_map)})
 })
 
 
@@ -149,12 +154,12 @@ app.get("/ActualTotalLoad",check.authenticated, async (req, res) => {
   const values = Object.values(date_to_values_map)
 
   if(typeof downFlagJson != "undefined"){
-    await produce(date_to_values_map).catch((err) => {
-         console.error("error in producer: ", err)
-       })
+    // await produce(date_to_values_map).catch((err) => {
+    //      console.error("error in producer: ", err)
+    //    })
       } 
   app.locals.ATLDownload = date_to_values_map
-  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load' })
+  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load',down:JSON.stringify(date_to_values_map) })
   //console.log(ATLDownload)
 });
 
@@ -165,6 +170,6 @@ app.use((req, res) => {
   res.status(404).render('404');
 }) 
 
-// app.get('/', function(req, res) {
-//   res.render('downloadButton.ejs');
-// });
+ app.get('/', function(req, res) {
+   res.render('downloadButton.ejs');
+ });

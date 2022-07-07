@@ -37,9 +37,14 @@ app.get("/", async (req, res) => {
 //console.log(lol.FFDownload)\
 
 
-consume().catch((err) => {
+  
+
+  consume().catch((err) => {
     console.error("error in consumer: ", err)
 })
+
+//app.listen( PORT, () => console.log("Server listening to port " + PORT))
+
 
 
 /**fs.readFile("./lol.json", "utf8", (err, jsonString) => {
