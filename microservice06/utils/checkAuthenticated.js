@@ -22,6 +22,7 @@ function authenticated(req, res, next){
       verify()
       .then(()=>{
           req.user = user;
+          dieuth = user.email;
           next();
       })
       .catch(err=>{
