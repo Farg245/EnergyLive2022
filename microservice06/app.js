@@ -20,36 +20,45 @@ connectDB();
 
 app.listen(7005);
 
-app.get('/',  check.authenticated, async (req, res)=>{
-    const email = dieuth
-    console.log(email)
-    const lol = await User.find({});
-    const test = lol.filter((user_info)=>email===user_info.Email)
-    //const user_info = await User.find({"Email": {email} }, "FirstName LastName LastLogin DaysLeft -_id");
 
-    console.log(test)
-    // const lname = req.query.LastName;
-    // const fname = req.query.FirstName;
-    // const lastlog = req.query.LastLogin;
-    // const dleft = req.query.DaysLeft;
+app.get('/', /*check.authenticated,*/ async (req, res)=>{
+     
+    //const email = "dejah.will@hotmail.com"
+    const email = req.query.email;
+    //console.log(email)
+    //const allMails = await User.find({}, "Email")
+    //console.log(allMails)
+    if (typeof email === "undefined") {
+        const allMails = await User.find({}, "Email")
+        res.render("index", {allMails: allMails})
+    }
+    if (typeof email !== "undefined"){
+        
+        const lol = await User.find({});
+        const test_util = lol.filter((user_info)=>email===user_info.Email)
+        //const test_util = await User.find({"Email": {email} }, "FirstName LastName LastLogin DaysLeft -_id");
 
-    var fname = test['FirstName'];
-    var lname = test['LaststName'];
-    var lastlog = test['LastLogin'];
-    var dleft = test['DaysLeft'];
-    console.log(fname)
-    console.log(lname)
-    console.log(lastlog)
-    console.log(dleft)
+        //console.log(test_util)
+        test = test_util[0]
+        //console.log(test)
 
-    res.render("index",{fname: fname, lname: lname, email: dieuth, lastlog: lastlog, dleft: dleft})
-    //res.send("Hello")
-})
+        var fname = test['FirstName'];
+        var lname = test['LastName'];
+        var lastlog = test['LastLogin'];
+        var dleft = test['DaysLeft'];
+        console.log(typeof dleft)
 
+        let extended_by = req.query.ext_days;
+        if (typeof extended_by != "undefined"){
+            dleft = dleft + parseInt(extended_by);
+            const filter = { Email: email };    
+            const update = { DaysLeft: dleft };
 
-app.get('/extend', check.authenticated, (req, res)=>{
-    let extended_by = req.ext_by;
-    res.render('extend', {extended_by});
-    res.redirect('http://localhost/microservice03/ActualTotalLoad')
+            let doc = await User.findOneAndUpdate(filter, update, {returnOriginal: false});
+            console.log(doc)
+        }
+
+        res.render("userData",{email: email, fname: fname, lname: lname, lastlog: lastlog, dleft: dleft})
+    }
 })
 

@@ -1,0 +1,10 @@
+
+<% if (allMails.length >0) {%>
+    <label  for="Email">Choose your Email:</label>
+    <select name="email" id="email">
+
+      <%  allMails.forEach(mail => { %>
+        <option value=<%=mail['Email'] %> ><%=mail['Email'] %></option>
+      <% }) %>  
+    </select> 
+  <% }%>

@@ -6,25 +6,13 @@
 <body>
 
     <h1>EnergyLive 2022</h1>
-    <dl>
-        <dt>First Name: <%= fname %> </dt>
-        <dt>Last Name: <%= lname %> </dt>
-        <dt>Email: <%= dieuth%> </dt>
-        <dt>Last Login: <%= lastlog %> </dt>
-        <dt>Days Left: <%= dleft %> </dt>
-      </dl>
-
-      <%- include('./partials/extendDaysSelector.ejs')  %>
-
-    <a href="https://www.youtube.com/watch?v=A_c86GHRnVA">
-        <button>Extend</button>
-      </a>
-    <a href="http://localhost/microservice03/ActualTotalLoad">
-        <button>Cancel</button>
-      </a>
+    <form action="" method="get">
+      <%- include('./partials/EmailSelector.ejs')  %> 
+      <br>
+    <input type="submit" value="Submit" />
+    </form>
 
 </body>
-
 
 <%- include('./partials/footer.ejs')  %> 
 

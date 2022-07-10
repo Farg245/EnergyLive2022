@@ -5,7 +5,7 @@ const User_data_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  LastLogin: {
+  LastName: {
     type: String,
     required: true,
   },
