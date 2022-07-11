@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express');
 
+const User = require("./models/User_Model.js");
 const app =express()
 const cookieParser = require('cookie-parser')
 const check =require("./utils/checkAuthenticated")
