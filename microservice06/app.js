@@ -46,7 +46,7 @@ app.get('/', /*check.authenticated,*/ async (req, res)=>{
         var lname = test['LastName'];
         var lastlog = test['LastLogin'];
         var dleft = test['DaysLeft'];
-        console.log(typeof dleft)
+        //console.log(typeof dleft)
 
         let extended_by = req.query.ext_days;
         if (typeof extended_by != "undefined"){
@@ -55,7 +55,7 @@ app.get('/', /*check.authenticated,*/ async (req, res)=>{
             const update = { DaysLeft: dleft };
 
             let doc = await User.findOneAndUpdate(filter, update, {returnOriginal: false});
-            console.log(doc)
+            //console.log(doc)
         }
 
         res.render("userData",{email: email, fname: fname, lname: lname, lastlog: lastlog, dleft: dleft})
