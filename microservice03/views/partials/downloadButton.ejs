@@ -1,9 +1,10 @@
+
 <a id="exportJSON" onclick="exportJson(this);" class="btn"><i class="icon-download"></i> <button>Download JSON</button></a>
 
 <script>
 
 function exportJson(el) {
-  
+
   var downl = "<%= JSON.stringify(down) %>"
   const j = downl.replace(/&#34;/g,'"')
   const final = j.slice(2, -2);

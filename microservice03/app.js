@@ -7,7 +7,7 @@ const ATL = require("./models/ATL_Model.js");
 const AGPT = require("./models/AGPT_Model.js");
 const FF = require("./models/FF_Model.js");
 const Countries = require("./models/Country_code_Model.js");
-const produce = require("./produce")
+//const produce = require("./produce")
 
 
 app.use(cors());
@@ -37,7 +37,7 @@ app.use(cookieParser());
  
 
 
-app.get("/CrossBorderFlow",check.authenticated,async (req,res)=>{
+app.get("/CrossBorderFlow",check.authenticated, async (req,res)=>{
   const country_codes = await Countries.find({}, "-_id");
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
@@ -134,7 +134,7 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
 })
 
 
-app.get("/ActualTotalLoad",check.authenticated, async (req, res) => {
+app.get("/ActualTotalLoad", check.authenticated,async (req, res) => {
   const country_codes = await Countries.find({}, "-_id");
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
