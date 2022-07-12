@@ -58,6 +58,11 @@ app.get('/profile', check.authenticated, async (req, res)=>{
     if  ( found.length == 0){
         LoggedInUser.insertMany(myobj)
     }
+    else{
+        const filter = { Email: user.email };    
+        const update = { LoggedInFlag: true };
+        LoggedInUser.findOneAndUpdate(filter, update, {returnOriginal: false});
+    }
 
     res.render('profile', {user, email});
 })
@@ -66,8 +71,22 @@ app.get('/randompath', check.authenticated, (req,res)=>{
     res.send('randompath')
 })
 
-app.get('/logout', (req, res)=>{
+app.get('/logout', check.authenticated, async (req, res)=>{
+    
+    let user = req.user
+    const found = await LoggedInUser.find({"Email": user.email})
+        
+    if (found.length != 0){
+        
+        const filter = { Email: user.email };    
+        //console.log(user.email)
+        const update = { LoggedInFlag: false };
+
+        let doc = await LoggedInUser.findOneAndUpdate(filter, update, {returnOriginal: false});
+        //console.log(doc)
+    }
     res.clearCookie('session-token');
+    //res.render('/', {user, email})
     res.redirect('/')
 
 })
