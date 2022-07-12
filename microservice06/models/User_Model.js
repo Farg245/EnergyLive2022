@@ -21,6 +21,10 @@ const User_data_schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  LoggedInFlag: {
+    type: Boolean,
+    required: true,
+  },
   _id: false,
   _v: false,
 });

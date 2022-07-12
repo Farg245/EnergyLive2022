@@ -53,7 +53,7 @@ app.get('/profile', check.authenticated, async (req, res)=>{
     var lastname = username[1]
     var timestamp = Date.now()
     var d = LoggedInUser
-    var myobj = { FirstName: firstname, LastName: lastname, Email: user.email, LastLogin: new Date(timestamp).toString(), DaysLeft: 30 };
+    var myobj = { FirstName: firstname, LastName: lastname, Email: user.email, LastLogin: new Date(timestamp).toString(), DaysLeft: 30, LoggedInFlag: true};
     const found = await d.find({"Email": user.email})
     if  ( found.length == 0){
         LoggedInUser.insertMany(myobj)
