@@ -60,8 +60,9 @@ app.get('/profile', check.authenticated, async (req, res)=>{
     }
     else{
         const filter = { Email: user.email };    
-        const update = { LoggedInFlag: true };
-        LoggedInUser.findOneAndUpdate(filter, update, {returnOriginal: false});
+        const update = { LastLogin: new Date(timestamp).toString(), LoggedInFlag: true };
+        let util = await LoggedInUser.findOneAndUpdate(filter, update, {returnOriginal: false});
+        //console.log(util);
     }
 
     res.render('profile', {user, email});
