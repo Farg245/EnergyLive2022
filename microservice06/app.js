@@ -21,10 +21,12 @@ connectDB();
 app.listen(7005);
 
 
-app.get('/', /*check.authenticated,*/ async (req, res)=>{
+app.get('/', check.authenticated, async (req, res)=>{
      
     //const email = "dejah.will@hotmail.com"
-    const email = req.query.email;
+    //const email = req.query.email;
+    let user = req.user
+    const email = user.email;
     //console.log(email)
     //const allMails = await User.find({}, "Email")
     //console.log(allMails)
