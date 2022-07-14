@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const app = express();
 const ATL = require("./models/ATL_Model.js");
+const CurrentUser = require("./models/User_Model.js");
 const AGPT = require("./models/AGPT_Model.js");
 const FF = require("./models/FF_Model.js");
 const Countries = require("./models/Country_code_Model.js");
@@ -42,11 +43,18 @@ app.get("/CrossBorderFlow",check.authenticated, async (req,res)=>{
   const start =req.query.startDate +" "+req.query.startTime +":00.000"
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const SelectedMapCode = req.query.MapCode;
-  //const downFlagJson = req.query.DownloadJSON;
-  //const downFlagCsv = req.query.DownloadCSV;
+ 
+  let user = req.user
+  const found_util = await CurrentUser.find({"Email": user.email})
+  found = found_util[0];
+  //console.log(found);
+        
+  const res1 = found['LastLogin'];
+  const res2 = found['DaysLeft'];
 
-  //console.log(downFlagJson)
-  //console.log(SelectedMapCode);
+  //console.log(res1);
+  //console.log(res2);
+
   const DestionationCountry = req.query.DestionationCountry;
 
   const FF_data_util = await FF.find({  "DateTime": {"$gte": start, "$lte": end}}, "FlowValue InMapCode OutMapCode DateTime -_id");
@@ -66,15 +74,6 @@ app.get("/CrossBorderFlow",check.authenticated, async (req,res)=>{
     })
   } 
    
-  //  if(typeof downFlagJson != "undefined"){
-    
-    
-  // //download(jsonData, 'json.txt', 'text/plain');
-  //   // await produce(date_to_values_map).catch((err) => {
-  //   //      console.error("error in producer: ", err)
-  //   //    })
-  //     } 
-
   const date_labels = Object.keys(date_to_values_map)
   const values = Object.values(date_to_values_map)
   var js=[]
@@ -87,7 +86,7 @@ app.get("/CrossBorderFlow",check.authenticated, async (req,res)=>{
     }
   }
 
-  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows', down:JSON.stringify(js)})
+  res.render("CrossBorderFlow", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Cross-border flows', down:JSON.stringify(js), lastlog: res1, daysleft: res2})
 })
 
 
