@@ -12,22 +12,6 @@ services:
     
     volumes:
       - .:/app
-      - /app/microservice01/node_modules
-
-  microservice01:
-    build:
-      dockerfile: Dockerfile
-      context: ./microservice01
-    container_name: microservice01
-    ports:
-      - "7001:7001"
-    restart: always
-    depends_on:
-      - "microservice02"
-      
-    volumes:
-      - .:/app
-      - /app/microservice02/node_modules
 
 
   microservice03:
@@ -65,14 +49,16 @@ services:
        - .:/app
        - /app/microservice06/node_modules
 
-  microservice05:
+
+
+  microservice07:
     
      build:
       dockerfile: Dockerfile
-      context: ./microservice05
-     container_name: microservice05
+      context: ./microservice07
+     container_name: microservice07
      ports:
-      - "7004:7004"
+      - "7007:7007"
      restart: always
      depends_on:
        - "microservice03"
@@ -81,33 +67,14 @@ services:
        - .:/app
        - /app/microservice03/node_modules
 
-  zookeeper:
-    image: "bitnami/zookeeper:latest"
-    ports:
-      - "2181:2181"
-
-
-  kafka:
-    image: "bitnami/kafka:latest"
-    ports:
-      - "9092:9092"
-
-    environment:
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
     depends_on:
-      - microservice01
       - microservice02
       - microservice03
       - microservice06
-      - microservice05
-      - kafka
-      - zookeeper
-
-volumes:
-  zookeeper_data:
-    driver: local
-  kafka_data:
-    driver: local
+      - microservice07
+    ports:
+      - "80:80"

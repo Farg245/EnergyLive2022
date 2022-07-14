@@ -14,6 +14,12 @@ app.set('view engine', 'ejs');
 
 app.use(express.static("public"))
 
+const check =require("./utils/checkAuthenticated")
+const cookieParser = require('cookie-parser')
+app.use(express.json());
+app.use(cookieParser());
+
+
 //change
 const dbURI = 'mongodb+srv://User:IvfkezJoPM1JuCDC@saasproject.rqtkq.mongodb.net/ATL?retryWrites=true&w=majority'
 
@@ -28,7 +34,7 @@ mongoose.connect(dbURI)
     .catch((err) => console.log(err))
 
 
-app.get('/',(req,res)=>{
+app.get('/',check.authenticated,(req,res)=>{
 
     // update the data of atl
     fs.createReadStream("./csv_files/new_atl.csv")
@@ -149,7 +155,7 @@ app.get('/',(req,res)=>{
                 }
             })
     })
-    res.redirect("http://localhost:7002")
+    res.redirect("/microservice03/")
 
 
 })

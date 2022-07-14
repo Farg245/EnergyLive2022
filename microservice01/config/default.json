@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://User:IvfkezJoPM1JuCDC@saasproject.rqtkq.mongodb.net/ATL?retryWrites=true&w=majority",
-  "jwtSecret": ""
-}
