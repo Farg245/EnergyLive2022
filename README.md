@@ -3,9 +3,10 @@
 ## TEAM (01)
   
   
-περιγραφή - οδηγίες
-  
-Περιέχονται φάκελοι για 15 microservices. Ο αριθμός είναι εντελώς ενδεικτικός. Δημιουργήστε ακριβώς όσα απαιτούνται από τη λύση σας.
-  
-NOTE: no need to deploy 15 indicative max number of microservices  
+Περιέχονται φάκελοι για 4 microservices.
+
+Για να τρέξει σε localhost η εφαρμογή EnergyLive 2022
+1. Git clone this repo
+2. npm install all dependencies
+3. run docker-compose build κ' docker-compose up
  
