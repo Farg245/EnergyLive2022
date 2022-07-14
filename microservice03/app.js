@@ -23,7 +23,7 @@ app.listen(7002);
 //
 app.use(express.static("public"))
 
-app.get("/", async (req, res) => {
+app.get("/",  async (req, res) => {
   res.render("index")
 });
 //junk
@@ -98,6 +98,14 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   const ProductionType = req.query.ProductionType;
   const SelectedMapCode = req.query.MapCode;//.substring(0,2);
   //const downFlagJson = req.query.DownloadButton;
+
+  let user = req.user
+  const found_util = await CurrentUser.find({"Email": user.email})
+  found = found_util[0];
+  //console.log(found);
+        
+  const res1 = found['LastLogin'];
+  const res2 = found['DaysLeft'];
   
   const AGPT_data_util = await AGPT.find({"ProductionType": ProductionType,  "DateTime": {"$gte": start, "$lte": end}}, "ActualGenerationOutput  MapCode DateTime -_id");//.sort('DateTime');
   const AGPT_data = AGPT_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
@@ -129,7 +137,7 @@ app.get("/AggregatedGenerationperType",check.authenticated,async (req,res)=>{
   }
 
  
-  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type',down:JSON.stringify(js)})
+  res.render("AggregatedGenerationperType", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Generation per type',down:JSON.stringify(js), lastlog: res1, daysleft: res2})
 })
 
 
@@ -139,6 +147,14 @@ app.get("/ActualTotalLoad", check.authenticated,async (req, res) => {
   const end =req.query.endDate+" "+req.query.endTime+":00.000"
   const SelectedMapCode = req.query.MapCode;
   //const downFlagJson = req.query.DownloadButton;
+
+  let user = req.user
+  const found_util = await CurrentUser.find({"Email": user.email})
+  found = found_util[0];
+  //console.log(found);
+        
+  const res1 = found['LastLogin'];
+  const res2 = found['DaysLeft'];
 
   const ATL_data_util = await ATL.find({"DateTime": {"$gte": start, "$lte": end}}, "TotalLoadValue  MapCode DateTime -_id");//.sort('DateTime');
   const ATL_data = ATL_data_util.filter((lol) => SelectedMapCode === lol.MapCode.substring(0,2));
@@ -171,7 +187,7 @@ app.get("/ActualTotalLoad", check.authenticated,async (req, res) => {
 
 
   app.locals.ATLDownload = date_to_values_map
-  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load',down:JSON.stringify(js) })
+  res.render("ActualTotalLoad", { country_codes: country_codes, date_labels: date_labels, values:values, title: 'Actual Total Load',down:JSON.stringify(js), lastlog: res1, daysleft: res2 })
 
 });
 
