@@ -23,17 +23,24 @@ app.listen(7002);
 //
 app.use(express.static("public"))
 
-app.get("/",  async (req, res) => {
-  res.render("index")
-});
 //junk
 const check =require("./utils/checkAuthenticated")
 const cookieParser = require('cookie-parser')
 app.use(express.json());
 app.use(cookieParser());
 
-
 //junk end
+
+app.get("/", check.authenticated, async (req, res) => {
+  let user = req.user
+  const found_util = await CurrentUser.find({"Email": user.email})
+  found = found_util[0];
+  //console.log(found);
+        
+  const res1 = found['LastLogin'];
+  const res2 = found['DaysLeft'];
+  res.render("index", {lastlog: res1, daysleft:res2})
+});
 
  
 
