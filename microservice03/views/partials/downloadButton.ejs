@@ -1,0 +1,66 @@
+
+<a id="exportJSON" onclick="exportJson(this);" class="btn"><i class="icon-download"></i> <button>Download JSON</button></a>
+
+<script>
+
+function exportJson(el) {
+
+  var downl = "<%= JSON.stringify(down) %>"
+  const j = downl.replace(/&#34;/g,'"')
+  const final = j.slice(2, -2);
+ 
+    var data = "text/json;charset=utf-8," + encodeURIComponent(final);
+    // what to return in order to show download window?
+
+    el.setAttribute("href", "data:"+data);
+    el.setAttribute("download", "myData.json");    
+}
+</script>
+
+
+  <a id="exportCSV" onclick="exportCsv(this);" class="btn"><i class="icon-download"></i> <button>Download CSV</button></a>
+  <script>
+
+    function exportCsv(el) {
+      
+      var down2 = "<%= down %>"
+      const j = down2.replace(/&#34;/g,'"')
+      const final = j.slice(1, -1);
+      const my_labels = "<%= date_labels %>".split(",");
+      const my_values = "<%= values %>".split(",");
+      var js=[]
+      for (var i = 0; i < my_labels.length; i++) {
+        js[i] = {
+          "date": my_labels[i],
+          "value": my_values[i]
+        }
+      }
+      
+      function ConvertToCSV(objArray) {
+          var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+          var str = '';
+
+          for (var i = 0; i < array.length; i++) {
+              var line = '';
+              for (var index in array[i]) {
+                  if (line != '') line += ','
+
+                  line += array[i][index];
+              }
+
+              str += line + '\r\n';
+          }
+
+          return str;
+        }
+      const c = ConvertToCSV(js)
+      const f = "date,value\n" + c
+          
+      var data = "text/csv;charset=utf-8," + encodeURI(f);
+
+ 
+      el.setAttribute("href", "data:"+data);
+      el.setAttribute("download", "myData.csv");    
+    }
+    </script>
+

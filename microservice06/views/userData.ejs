@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/header.ejs')  %> 
+
+<body>
+
+    <h1>EnergyLive 2022</h1>
+    <dl>
+        <dt>Email: <%= email %> </dt>
+        <dt>First Name: <%= fname %> </dt>
+        <dt>Last Name: <%= lname %> </dt>
+        <dt>Last Login: <%= lastlog %> </dt>
+        <dt>Days Left: <%= dleft %> </dt>
+      </dl>
+
+      <%- include('./partials/extendDaysSelector.ejs')  %>
+      <br>
+    <a href="/microservice03/ActualTotalLoad">
+        <button>Back</button>
+      </a>
+
+</body>
+
+
+<%- include('./partials/footer.ejs')  %> 
+
+</html>

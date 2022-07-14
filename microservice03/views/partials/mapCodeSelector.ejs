@@ -1,0 +1,9 @@
+<% if (country_codes.length >0) {%>
+    <label for="MapCode">Choose a Country:</label>
+    <select name="MapCode" id="MapCode">
+
+      <%  country_codes.forEach(country => { %>
+        <option value=<%=country['MapCode'] %> ><%=country['Country'] %></option>
+      <% }) %>  
+    </select> 
+  <% }%>

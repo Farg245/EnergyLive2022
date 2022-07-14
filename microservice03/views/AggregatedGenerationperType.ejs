@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/header.ejs')  %> 
+
+<body>
+
+    <%- include('./partials/nav.ejs')  %> 
+    <%- include('./partials/emaildisplay.ejs')  %> 
+  <%# Get the countries and their respective codes from the database and display them in a drop down lise %>
+  <form action="" method="get">
+      <%- include('./partials/mapCodeSelector.ejs')  %> 
+      <br>
+      <!-- this in not a partical because it is use only here -->
+     
+        <label for="ProductionType">Production Type:</label>
+        <select name="ProductionType" id="ProductionType">
+            <option value="Hydro Run-of-river and poundage">Hydro Run-of-river and poundage</option>
+            <option value="Biomass">Biomass</option>
+            <option value="Other renewable">Other renewable</option>
+            <option value="Wind Onshore">Wind Onshore</option>
+            <option value="Nuclear">Nuclear</option>
+            <option value="Solar">Solar</option>
+            <option value="Hydro Water Reservoir">Hydro Water Reservoir</option>
+            <option value="Waste">Waste</option>
+            <option value="Fossil Gas">Fossil Gas</option>
+            <option value="Fossil Oil">Fossil Oil</option>
+            <option value="Fossil Hard coal">Fossil Hard coal</option>
+            <option value="Hydro Pumped Storage">Hydro Pumped Storage</option>
+            <option value="Geothermal">Geothermal</option>
+            <option value="Fossil Brown coal/Lignite">Fossil Brown coal/Lignite</option>
+            <option value="Wind Offshore">Wind Offshore</option>
+            <option value="Marine">Marine</option>
+        </select> 
+    <br>
+      <%- include('./partials/startDateSelector.ejs')  %> 
+      <br>
+      <%- include('./partials/endDateSelector.ejs')  %> 
+      <br>
+
+    <input type="submit" value="Submit" />
+  </form>
+  <%- include('./partials/drawCanvas.ejs')  %> 
+
+  <%- include('./partials/downloadButton.ejs')  %> 
+
+
+
+
+
+</body>
+<%- include('./partials/footer.ejs')  %> 
+
+</html>

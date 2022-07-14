@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "csv": "^6.2.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "google-auth-library": "^8.1.1",
+    "mongoose": "^6.4.4"
+  },
+  "scripts": {
+    "dev": "node app.js",
+    "start": "node app.js"
+  }
+}

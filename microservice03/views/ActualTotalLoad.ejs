@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/header.ejs')  %> 
+
+<body>
+
+    <%- include('./partials/nav.ejs')  %> 
+    <%- include('./partials/emaildisplay.ejs')  %> 
+  <%# Get the countries and their respective codes from the database and display them in a drop down list %>
+  <form action="" method="get">
+      <%- include('./partials/mapCodeSelector.ejs')  %> 
+      <br>
+      <%- include('./partials/startDateSelector.ejs')  %> 
+      <br>
+      <%- include('./partials/endDateSelector.ejs')  %> 
+      <br>
+    <input type="submit" value="Submit" />
+  </form>
+  <%- include('./partials/drawCanvas.ejs')  %> 
+      
+  <%- include('./partials/downloadButton.ejs')  %> 
+
+
+
+
+
+</body>
+<%- include('./partials/footer.ejs')  %> 
+
+</html>

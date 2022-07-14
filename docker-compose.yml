@@ -12,30 +12,69 @@ services:
     
     volumes:
       - .:/app
-      - /app/microservice01/node_modules
 
-  microservice01:
-    build:
+
+  microservice03:
+    
+     build:
       dockerfile: Dockerfile
-      context: ./microservice01
-    container_name: microservice01
-    ports:
-      - "7001:7001"
-    restart: always
-    depends_on:
-      - "microservice02"
-      
-    volumes:
-      - .:/app
-      - /app/microservice02/node_modules
+      context: ./microservice03
+     container_name: microservice03
+     ports:
+      - "7002:7002"
+     restart: always
+     depends_on:
+       - "microservice02"
 
- 
+      
+     volumes:
+       - .:/app
+       - /app/microservice02/node_modules
+
+
+  microservice06:
+    
+     build:
+      dockerfile: Dockerfile
+      context: ./microservice06
+     container_name: microservice06
+     ports:
+      - "7005:7005"
+     restart: always
+     depends_on:
+       - "microservice02"
+       - "microservice03"
+      
+     volumes:
+       - .:/app
+       - /app/microservice06/node_modules
+
+
+
+  microservice07:
+    
+     build:
+      dockerfile: Dockerfile
+      context: ./microservice07
+     container_name: microservice07
+     ports:
+      - "7007:7007"
+     restart: always
+     depends_on:
+       - "microservice03"
+      
+     volumes:
+       - .:/app
+       - /app/microservice03/node_modules
+
   nginx-proxy:
     build:
       dockerfile: Dockerfile
       context: ./proxy
     depends_on:
-      - microservice01
       - microservice02
+      - microservice03
+      - microservice06
+      - microservice07
     ports:
       - "80:80"

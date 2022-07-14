@@ -1,0 +1,42 @@
+<canvas id="myChart" width="50" height="50"></canvas>
+    <script>
+      const my_labels = "<%= date_labels %>".split(",");
+      const my_values = "<%= values %>".split(",");
+      const my_title = "<%= title %>".split(",");      
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: my_labels,
+              datasets: [{
+                  label: my_title,
+                  data: my_values,
+                  backgroundColor: ['rgba(255, 99, 132,1)'],
+                  borderWidth: 1
+              }]
+          },
+      });
+
+      </script>
+
+<input type="button" value="Download - PNG" onclick="candown('myChart', 'png')"/>
+
+<script>
+      function candown (target, type) {
+        // (B1) GET CANVAS
+        let canvas = document.getElementById(target);
+        
+        // (B2) CREATE LINK
+        let anchor = document.createElement("a");
+        anchor.download = "download." + type;
+        anchor.href = canvas.toDataURL("image/" + type);
+        
+        // (B3) "FORCE DOWNLOAD"
+        anchor.click();
+        anchor.remove();
+        
+        // (B4) SAFER ALTERNATIVE - LET USER CLICK ON LINK
+        // anchor.innerHTML = "Download";
+        // document.body.appendChild(anchor);
+}
+</script>
