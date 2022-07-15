@@ -2,5 +2,5 @@
 
 ## Microservice07 - Update
 
-Το συγκεκριμένο microservice υλοποιεί update των δεδομένων της βάσης.
+This microservice implements update of the database data.
 
