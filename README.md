@@ -4,7 +4,19 @@
 
 This project was conducted for the course of Software as a Service at the 2021-2022 Spring semester of the Electrical and Computer Engineering School at the National Technical University of Athens.
 
-There are 4 microservices folders, a proxy folder and a link to VisualParadigm.
+There are 4 microservices folders, a proxy folder and a link to a VisualParadigm (.vpp) file.
+
+The services that were implemented were:
+
+- Sign in with Google (microservice02)
+- Selection of energy market size (load, production, imports/exports) and visualisation of values  in chart format from a specified start date to the current moment (microservice03)
+- Download of the chart in png, json or csv format (microservice03)
+- Display of remaining subscription days and renewal/extend option (microservice06)
+- Data update option, when new data is available (microservice07)
+
+## Web App
+
+https://saas202201.web.app/
 
 ## Installation
 
@@ -16,25 +28,16 @@ $ Git clone this repo
 
 $ npm run installer
 
-$ run docker-compose build
+$ docker-compose build
 
 $ docker-compose up
 
 ## Team Members
 
-This project was a collaborate effort of a team of 5 members. Those members are:
+This project was a collaborate effort of a team of 4 members. Those members are:
 
 - Fardelas Ioannis
 - Paralikas Ilias
 - Rizeakou Chrysa
 - Vlontzou Maria Eleftheria
   
-
-
-
-
-
-
-
-
- 
